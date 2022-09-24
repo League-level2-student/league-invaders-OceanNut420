@@ -2,18 +2,18 @@ import java.util.Random;
 
 public class ObjectManager {
 
-	int rocket;
-	int[] projectiles = {};
-	int[] aliens = {};
+	Rocketship rocket;
+	Projectile[] projectiles = {};
+	Alien[] aliens = {};
 	Random rand = new Random();
 	
-	public ObjectManager(int newrocket) {
+	public ObjectManager(Rocketship newrocket) {
 		
 		rocket = newrocket;
 		
 	}
 	
-	void addProjectile(int[] newprojectiles) {
+	void addProjectile(Projectile[] newprojectiles) {
 		
 		projectiles = newprojectiles;
 		
@@ -21,7 +21,21 @@ public class ObjectManager {
 	
 	void addAlien() {
 		
-		aliens.add(new Alien(random.nextInt(LeagueInvaders.WIDTH),0,50,50));
+		aliens[].add(new Alien(rand.nextInt(LeagueInvaders.WIDTH),0,50,50));
+		
+	}
+	
+	void update() {
+		
+		for(int i=0;i<aliens.length;i++) {
+			
+			aliens[i].update();
+			
+			if(aliens[i].y < 0 || aliens[i].y > 720) {
+				aliens[i].isActive = false;
+			}
+			
+		}
 		
 	}
 	
