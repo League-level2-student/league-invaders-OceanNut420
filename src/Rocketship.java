@@ -17,7 +17,7 @@ public class Rocketship extends GameObject{
 		speed = 10;
 		
 		if (needImage) {
-		    loadImage ("rocket.png");
+		    loadImage ("intelligentTree.jpeg");
 		}
 		
 	}
@@ -60,5 +60,9 @@ public class Rocketship extends GameObject{
 	        needImage = false;
 	    }
 	}
+	
+	public Projectile getProjectile() {
+        return new Projectile(x+width/2, y, 10, 10);
+	} 
 	
 }

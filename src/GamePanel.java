@@ -5,7 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -20,6 +23,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
     Timer frameDraw;
     Rocketship r = new Rocketship(250,700,50,50);
     ObjectManager manage = new ObjectManager(r);
+    Timer alienSpawn;
+    
+    public static BufferedImage image;
+    public static boolean needImage = true;
+    public static boolean gotImage = false;	
 	
     public GamePanel() {
     	
@@ -28,7 +36,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
     	frameDraw = new Timer(1000/60, this);
     	
         frameDraw.start();
-    	
+        
+        try {
+			image = ImageIO.read(this.getClass().getResourceAsStream("intelligentTree.jpeg"));
+		} catch (Exception e) {
+			
+		}
+        
     }
     
 	@Override
@@ -79,8 +93,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	
 	void drawGameState(Graphics g) { 
 		
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
+		g.drawImage(image, 0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT, null);
 
 		manage.draw(g);
 		
@@ -98,6 +111,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		g.setFont(insFont);
 		g.drawString("You killed enemies", 145, 400);
 		g.drawString("Press ENTER to restart", 120, 550);
+		
+	}
+	
+	void startGame() {
+		
+		alienSpawn = new Timer(1000 , manage);
+	    alienSpawn.start();
 		
 	}
 
@@ -132,6 +152,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		
 		if(currentState == 1) {
 			
+			startGame();
+			
 		if (arg0.getKeyCode()==KeyEvent.VK_UP) {
 			if(r.y > 0) {
 		    System.out.println("UP");
@@ -159,7 +181,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		    r.right();
 		    }
 		}
+			
+		if (arg0.getKeyCode()==KeyEvent.VK_SPACE) {
 		
+			manage.addProjectile(r.getProjectile());
+			
+		}
+				
+		}
+		
+		if (currentState == 2) {
+			
+			alienSpawn.stop();
+			
 		}
 		
 	}
