@@ -17,7 +17,7 @@ public class Alien extends GameObject{
 		speed = 1;
 		
 		if (needImage) {
-		    loadImage ("intelligentTree.jpeg");
+		    loadImage ("hanky.jpeg");
 		}
 		
 	}

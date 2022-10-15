@@ -24,6 +24,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
     Rocketship r = new Rocketship(250,700,50,50);
     ObjectManager manage = new ObjectManager(r);
     Timer alienSpawn;
+    int fake = 0;
     
     public static BufferedImage image;
     public static boolean needImage = true;
@@ -38,7 +39,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
         frameDraw.start();
         
         try {
-			image = ImageIO.read(this.getClass().getResourceAsStream("intelligentTree.jpeg"));
+			image = ImageIO.read(this.getClass().getResourceAsStream("spack.jpeg"));
 		} catch (Exception e) {
 			
 		}
@@ -93,7 +94,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	
 	void drawGameState(Graphics g) { 
 		
-		g.drawImage(image, 0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT, null);
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
 
 		manage.draw(g);
 		
@@ -118,6 +120,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		
 		alienSpawn = new Timer(1000 , manage);
 	    alienSpawn.start();
+	    
+	    fake++;
 		
 	}
 
@@ -152,8 +156,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		
 		if(currentState == 1) {
 			
+		if(fake == 0) {
 			startGame();
-			
+		}
+					
 		if (arg0.getKeyCode()==KeyEvent.VK_UP) {
 			if(r.y > 0) {
 		    System.out.println("UP");
@@ -193,6 +199,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		if (currentState == 2) {
 			
 			alienSpawn.stop();
+			
+			fake--;
 			
 		}
 		

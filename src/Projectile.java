@@ -17,7 +17,7 @@ public class Projectile extends GameObject{
 		speed = 10;
 		
 		if (needImage) {
-		    loadImage ("intelligentTree.jpeg");
+		    loadImage ("rocket.png");
 		}
 		
 	}

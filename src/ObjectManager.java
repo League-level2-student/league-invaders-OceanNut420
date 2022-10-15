@@ -86,7 +86,8 @@ public class ObjectManager implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		
-		addAlien();
+		System.out.println("uno");
+		//addAlien();
 		
 	}
 	
