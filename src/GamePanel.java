@@ -25,6 +25,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
     ObjectManager manage = new ObjectManager(r);
     Timer alienSpawn;
     int fake = 0;
+    int scoo;
     
     public static BufferedImage image;
     public static boolean needImage = true;
@@ -43,6 +44,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		} catch (Exception e) {
 			
 		}
+        
+        scoo = manage.getScore();
         
     }
     
@@ -68,6 +71,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	void updateGameState() { 
 		
 		manage.update();
+		
+		if(r.isActive == false){
+			currentState = 2;
+		}
 		
 	}
 	
@@ -98,6 +105,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
 
 		manage.draw(g);
+		
+		String fort = "" + scoo;
+		g.drawString(fort, 10, 10);
 		
 	}
 	
@@ -149,6 +159,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		if (arg0.getKeyCode()==KeyEvent.VK_ENTER) {
 		    if (currentState == END) {
 		        currentState = MENU;
+		        
+		        //replace rocketship
+		        
 		    } else {
 		        currentState++;
 		    }
