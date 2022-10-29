@@ -160,7 +160,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		    if (currentState == END) {
 		        currentState = MENU;
 		        
-		        //replace rocketship
+		        r = new Rocketship(250,700,50,50);
+		        manage = new ObjectManager(r);
 		        
 		    } else {
 		        currentState++;
